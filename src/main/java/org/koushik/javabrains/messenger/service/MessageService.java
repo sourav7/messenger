@@ -1,6 +1,7 @@
 package org.koushik.javabrains.messenger.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,28 @@ public class MessageService {
 	public MessageService() {
 		messages.put(1L, new Message(1L, "Hello World", "Koushik"));
 		messages.put(2L, new Message(2L, "Hello Jersey", "Koushik"));
+	}
+
+	public List<Message> getAllMessagesForYear(int year) {
+		List<Message> messageForYear = new ArrayList<>();
+		Calendar cal = Calendar.getInstance();
+
+		for (Message message : messages.values()) {
+			cal.setTime(message.getCreated());
+			if (cal.get(Calendar.YEAR) == year) {
+				messageForYear.add(message);
+			}
+		}
+		return messageForYear;
+	}
+
+	public List<Message> getAllMessagesPaginated(int start, int size) {
+		ArrayList<Message> list = new ArrayList<>(messages.values());
+		if (start > list.size())
+			return null;
+		if (start + size < list.size())
+			return list.subList(start, start + size);
+		return list.subList(start, list.size());
 	}
 
 	public List<Message> getAllMessages() {
