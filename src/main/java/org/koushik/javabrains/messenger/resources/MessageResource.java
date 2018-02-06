@@ -18,6 +18,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import org.koushik.javabrains.messenger.exception.DataNotFoundException;
 import org.koushik.javabrains.messenger.model.Message;
 import org.koushik.javabrains.messenger.resources.beans.MessageFilterBean;
 import org.koushik.javabrains.messenger.service.MessageService;
@@ -63,7 +64,8 @@ public class MessageResource {
 	@GET
 	@Path("/{messageId}")
 	public Message getMessage(@PathParam("messageId") long messageId) {
-		return messageService.getMessage(messageId);
+		Message message = messageService.getMessage(messageId);
+		return message;
 	}
 
 	@Path("/{messageId}/comments")
