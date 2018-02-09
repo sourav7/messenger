@@ -1,7 +1,9 @@
 package org.koushik.javabrains.messenger.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -11,9 +13,11 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Message {
 	private long id;
 	private String message;
+	// @XmlElement(name = "made") //to rename a field
 	private Date created;
 	private String author;
 	private Map<Long, Comment> comments = new HashMap<>();
+	private List<Link> links = new ArrayList<>();
 
 	public Message() {
 	}
@@ -23,6 +27,14 @@ public class Message {
 		this.message = message;
 		this.created = new Date();
 		this.author = author;
+	}
+
+	public List<Link> getLinks() {
+		return links;
+	}
+
+	public void setLinks(List<Link> links) {
+		this.links = links;
 	}
 
 	public long getId() {
@@ -66,6 +78,13 @@ public class Message {
 
 	public void setComments(Map<Long, Comment> comments) {
 		this.comments = comments;
+	}
+
+	public void addLink(String url, String rel) {
+		Link link = new Link();
+		link.setLink(url);
+		link.setRel(rel);
+		this.links.add(link);
 	}
 
 	@Override

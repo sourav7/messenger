@@ -7,7 +7,8 @@ import javax.ws.rs.ext.Provider;
 
 import org.koushik.javabrains.messenger.model.ErrorMessage;
 
-@Provider
+//for registering in jersey use @Provider
+//@Provider
 public class GenericExceptionMapper implements ExceptionMapper<Throwable> {
 
 	@Override
